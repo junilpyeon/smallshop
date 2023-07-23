@@ -1,6 +1,6 @@
 package smallshop.smallshop.domain;
 
-import smallshop.smallshop.domain.productsDomain.Products;
+import smallshop.smallshop.domain.productsDomain.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,10 +21,10 @@ public class Category {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "category_item",
+    @JoinTable(name = "category_products",
             joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id"))
-    private List<Products> products = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
