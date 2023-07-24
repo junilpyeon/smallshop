@@ -29,7 +29,7 @@ public class Order {
 
     @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderProducts> orderItems = new ArrayList<>();
+    private List<OrderProducts> orderProducts = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL)
@@ -47,9 +47,9 @@ public class Order {
         member.getOrders().add(this);
     }
 
-    public void addOrderItem(OrderProducts orderItem) {
-        orderItems.add(orderItem);
-        orderItem.setOrder(this);
+    public void addOrderItem(OrderProducts orderProduct) {
+        orderProducts.add(orderProduct);
+        orderProduct.setOrder(this);
     }
 
     public void setDelivery(Delivery delivery) {
@@ -80,7 +80,7 @@ public class Order {
         }
 
         this.setStatus(OrderStatus.CANCEL);
-        for (OrderProducts orderItem : orderItems) {
+        for (OrderProducts orderItem : orderProducts) {
             orderItem.cancel();
         }
     }
@@ -91,7 +91,7 @@ public class Order {
      */
     public int getTotalPrice() {
         int totalPrice = 0;
-        for (OrderProducts orderItem : orderItems) {
+        for (OrderProducts orderItem : orderProducts) {
             totalPrice += orderItem.getTotalPrice();
         }
         return totalPrice;

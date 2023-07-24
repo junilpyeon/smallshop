@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 public class OrderProducts {
 
     @Id @GeneratedValue
-    @Column(name = "order_item_id")
+    @Column(name = "order_product_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
