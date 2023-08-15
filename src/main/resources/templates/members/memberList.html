@@ -5,8 +5,8 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <div>
-        <table class="table table-striped">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>#</th>
@@ -14,6 +14,7 @@
                 <th>도시</th>
                 <th>주소</th>
                 <th>우편번호</th>
+                <th>삭제</th>
             </tr>
             </thead>
             <tbody>
@@ -23,6 +24,13 @@
                 <td th:text="${member.address?.city}"></td>
                 <td th:text="${member.address?.street}"></td>
                 <td th:text="${member.address?.zipcode}"></td>
+                <td>
+                    <!-- 삭제 버튼 스타일 변경 -->
+                    <form th:action="@{/members/__${member.id}__/delete}" method="post">
+                        <input type="hidden" name="_method" value="post" />
+                        <button type="submit" class="btn btn-danger btn-sm">삭제</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>

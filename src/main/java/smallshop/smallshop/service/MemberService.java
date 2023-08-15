@@ -42,8 +42,34 @@ public class MemberService {
      * 회원 단건 조회
      */
     @Transactional(readOnly = true)
-    public Member findOne(Long memberId) {
+    public Member findMemberById(Long memberId) {
         return memberRepository.findOne(memberId);
+    }
+
+    /**
+     * 회원 삭제
+     */
+    public void deleteMember(Member member) {
+        // memberRepository를 사용하여 회원을 삭제합니다.
+        memberRepository.delete(member);
+    }
+
+    /**
+     * 회원 정보 수정
+     */
+    public void updateMember(Member member) {
+        Member existingMember = memberRepository.findOne(member.getId());
+        if (existingMember == null) {
+            throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+        }
+
+        // 수정할 필드들을 업데이트합니다.
+        existingMember.setName(member.getName());
+        existingMember.setAddress(member.getAddress());
+        // 다른 필드도 필요하다면 해당 필드도 업데이트
+
+        // 업데이트된 회원 정보를 저장합니다.
+        memberRepository.save(existingMember);
     }
 
 }

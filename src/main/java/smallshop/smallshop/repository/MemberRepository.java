@@ -30,4 +30,12 @@ public class MemberRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+    public void delete(Member member) {
+        em.remove(member);
+    }
+
+    public Member update(Member member) {
+        return em.merge(member);
+    }
 }
